@@ -84,7 +84,7 @@ def cli():
 @cli.command('future')
 def get_future_value():
     '''
-    Recover the Future Value and then display it
+    Determine the Future Value of an Investment
     '''
     future_value = compute_future_value()
     if future_value:
@@ -93,7 +93,7 @@ def get_future_value():
 @cli.command('present')
 def get_present_value():
     '''
-    Recover the Present Value and then display it
+    Determine the Present Value of an Investment
     '''
     present_value = compute_present_value()
     if present_value:
