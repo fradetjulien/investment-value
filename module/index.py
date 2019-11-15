@@ -1,0 +1,81 @@
+import click
+
+def set_interest_rate():
+    '''
+    Recover the interest rate applied to the investment in the CLI
+    '''
+    while True:
+        try:
+            interest_rate = float(input('Enter the interest rate applied to the investment :\n')) / 100
+            if interest_rate <= 0:
+                print('Error, the value must be a float.\n')
+                continue
+        except ValueError:
+            print("Error, enter a float number please.\n")
+            continue
+        else:
+            break
+    return interest_rate
+
+def set_characteristic(instruction):
+    '''
+    Recover a characteristic in the CLI
+    '''
+    while True:
+        try:
+            characteristic = int(input(instruction))
+            if characteristic <= 0:
+                print("Error, the value can't be equal or inferior to zero.\n")
+                continue
+        except ValueError:
+            print("Error, enter a number please.\n")
+            continue
+        else:
+            break
+    return characteristic
+
+def set_investment_characteristics(value_type, value):
+    '''
+    Insert the investment characteristics inside a dictionnary
+    '''
+    investment_characteristics = {
+        "FV": None,
+        "PV": None,
+        "r": None,
+        "n": None
+    }
+    investment_characteristics[value_type] = set_characteristic(instruction='Enter the {} value :\n'.format(value))
+    investment_characteristics["r"] = set_interest_rate()
+    investment_characteristics["n"] = set_characteristic(instruction='Enter the number of years :\n')
+    return investment_characteristics
+
+def compute_future_value():
+    investment_characteristics = set_investment_characteristics("FV", "future")
+    
+    return
+
+def compute_present_value():
+    investment_characteristics = set_investment_characteristics("PV", "present")
+    return
+
+@click.group()
+def cli():
+    '''
+    Compute Future or Present investment value
+    '''
+
+@cli.command('future')
+def future_value():
+    '''
+    '''
+    compute_future_value()
+
+@cli.command('present')
+def present_value():
+    '''
+    '''
+    compute_present_value()
+    return
+
+if __name__ == '__main__':
+    cli()
