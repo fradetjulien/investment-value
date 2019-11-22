@@ -55,9 +55,9 @@ def compute_future_value():
     '''
     investment_characteristics = set_investment_characteristics("PV", "present")
     try:
-        investment_characteristics["FV"] = investment_characteristics["PV"] \
+        investment_characteristics["FV"] = round(investment_characteristics["PV"] \
                                            * ((1 + investment_characteristics["r"]) \
-                                           **investment_characteristics["n"])
+                                           **investment_characteristics["n"]), 2)
     except:
         print("Sorry, we were unable to compute the Future Value.")
     return investment_characteristics["FV"]
@@ -68,9 +68,9 @@ def compute_present_value():
     '''
     investment_characteristics = set_investment_characteristics("FV", "future")
     try:
-        investment_characteristics["PV"] = investment_characteristics["FV"] \
+        investment_characteristics["PV"] = round(investment_characteristics["FV"] \
                                             / ((1 + investment_characteristics["r"]) \
-                                            **investment_characteristics["n"])
+                                            **investment_characteristics["n"]), 2)
     except:
         print("Sorry, we were unable to compute the Present Value.")
     return investment_characteristics["PV"]
