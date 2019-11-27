@@ -1,3 +1,6 @@
+'''
+Compute future or present value of an investment
+'''
 import click
 
 def set_interest_rate():
@@ -34,9 +37,9 @@ def set_characteristic(instruction):
             break
     return characteristic
 
-def set_investment_characteristics(item, value):
+def init_characteristics():
     '''
-    Insert the investment characteristics inside a dictionnary
+    Initialize investment characteristics inside a new dictionnary
     '''
     investment_characteristics = {
         "FV": None,
@@ -44,6 +47,13 @@ def set_investment_characteristics(item, value):
         "r": None,
         "n": None
     }
+    return investment_characteristics
+
+def set_investment_characteristics(item, value):
+    '''
+    Insert the investment characteristics inside a dictionnary
+    '''
+    investment_characteristics = init_characteristics()
     investment_characteristics[item] = set_characteristic('Enter the {} value :\n'.format(value))
     investment_characteristics["r"] = set_interest_rate()
     investment_characteristics["n"] = set_characteristic('Enter the number of years :\n')
@@ -58,7 +68,9 @@ def compute_future_value():
         investment_characteristics["FV"] = round(investment_characteristics["PV"] \
                                            * ((1 + investment_characteristics["r"]) \
                                            **investment_characteristics["n"]), 2)
-    except:
+    except ValueError:
+        print("Sorry, we were unable to compute the Future Value.")
+    except KeyError:
         print("Sorry, we were unable to compute the Future Value.")
     return investment_characteristics["FV"]
 
@@ -71,7 +83,9 @@ def compute_present_value():
         investment_characteristics["PV"] = round(investment_characteristics["FV"] \
                                             / ((1 + investment_characteristics["r"]) \
                                             **investment_characteristics["n"]), 2)
-    except:
+    except ValueError:
+        print("Sorry, we were unable to compute the Present Value.")
+    except KeyError:
         print("Sorry, we were unable to compute the Present Value.")
     return investment_characteristics["PV"]
 
